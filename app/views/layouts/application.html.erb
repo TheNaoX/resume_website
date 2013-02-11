@@ -8,10 +8,17 @@
 </head>
 <body>
 
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+  <% flash.each do |key, value| %>
+  <%= content_tag :div, value, :class => "flash alert alert-#{key}" unless value.blank? %>
+  <% end %>
 
+  <p> <%= user_signed_in? ? 
+  "Hello! #{current_user.email}" : 
+  "You're not logged in <a href='/users/sign_in'>Sign in here</a>".html_safe  %> </p>
+
+<div class='container'>
 <%= yield %>
+</div>
 
 </body>
 </html>

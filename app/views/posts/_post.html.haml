@@ -1,0 +1,4 @@
+.hero-unit
+  %h3= post.title
+  %p= post.content
+  %a{ href: "/author/#{post.author_id}" }= post.author.name

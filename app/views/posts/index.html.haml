@@ -3,4 +3,4 @@
 
 = render partial: 'post', collection: @posts
 
-
+= link_to "Create new post", new_post_path, class: "btn btn-inverse" if user_signed_in?

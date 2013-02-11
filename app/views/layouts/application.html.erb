@@ -12,13 +12,20 @@
   <%= content_tag :div, value, :class => "flash alert alert-#{key}" unless value.blank? %>
   <% end %>
 
-  <p> <%= user_signed_in? ? 
-  "Hello! #{current_user.email}" : 
-  "You're not logged in <a href='/users/sign_in'>Sign in here</a>".html_safe  %> </p>
-
-<div class='container'>
-<%= yield %>
-</div>
+  <ul class="nav nav-pills">
+    <li class="<%= "active" if params[:controller] == "main"%>"><%= link_to "Index", root_path %></li>
+    <li class="<%= "active" if params[:controller] == "posts"%>"><%= link_to "Posts", posts_path %></li>
+    <% if user_signed_in?  %>
+    <li style="padding-top:8px;">Hello! <%= current_user.email %></li>
+    <li><a href='/users/sign_out' data-method='delete'>Sign out</a></li>
+    <% else %>
+    <li>You're not logged in</li>
+    <li><a href='/users/sign_in'>Sign in here</a></li>
+    <% end %>
+  </ul>
+  <div class='container'>
+    <%= yield %>
+  </div>
 
 </body>
 </html>

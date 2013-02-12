@@ -1,4 +1,5 @@
 class Post < ActiveRecord::Base
+  acts_as_api
 
   attr_accessible :author_id, :content, :title, :link
 
@@ -12,6 +13,16 @@ class Post < ActiveRecord::Base
   validates :link, format: { with: URI::regexp(%w(http https)), message: "Please enter valid link" }
 
   default_scope order('created_at DESC')
+
+  api_accessible :post_details do |template|
+    template.add :id
+    template.add :title
+    template.add :content
+    template.add :created_at
+    template.add :updated_at
+    template.add :comments
+    template.add :author
+  end
 
   def pretty_print_likes
     if likes.count > 0

@@ -55,10 +55,11 @@ $(function(){
       modal.find('.fn-title').html(response.post.title);
       modal.find('.fn-content').html(response.post.content);
       modal.find('.fn-post-id').val(response.post.id);
-      modal.find('.fn-author').attr('href', '/author/' + response.author.id);
-      modal.find('.fn-author').html(response.author.username);
-      $.each(response.commments, function(comment){
-        commentsList.append('<li><a>' + comment.user.username + '</a> ' + response.comment.comment + '</li>');
+      modal.find('.fn-author').attr('href', '/authors/' + response.post.author.post.id);
+      modal.find('.fn-author').html(response.post.author.post.username);
+      commentsList.empty();
+      $.each(response.post.comments, function(index,comment){
+        commentsList.append('<li><a href="/authors/' + comment.userid + '" target="blank">' + comment.username + '</a> ' + comment.comment + '</li><br />');
       });
     });
   });
@@ -70,7 +71,8 @@ $(function(){
           commentsList = $(e.currentTarget).parent().parent().find('.fn-comments'),
           request = $.ajax({ url: '/comments', type: 'POST', data: { post_id: postId, comment: commentText } });
       request.done(function(response){
-        commentsList.append('<li><a>' + response.user.username + '</a> ' + response.comment.comment + '</li>');
+        $(e.currentTarget).val('');
+        commentsList.append('<li><a href="/authors/"' + response.user.id + ' target="blank">' + response.user.username + '</a> ' + response.comment.comment + '</li><br />');
       });
     }
   });

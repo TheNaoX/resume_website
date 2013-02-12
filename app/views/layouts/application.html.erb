@@ -16,7 +16,7 @@
     <li class="<%= "active" if params[:controller] == "main"%>"><%= link_to "Index", root_path %></li>
     <li class="<%= "active" if params[:controller] == "posts"%>"><%= link_to "Posts", posts_path %></li>
     <% if user_signed_in?  %>
-    <li style="padding-top:8px;">Hello! <%= current_user.email %></li>
+    <li style="padding-top:8px;">Hello! <%= current_user.username %></li>
     <li><a href='/users/sign_out' data-method='delete'>Sign out</a></li>
     <% else %>
     <li>You're not logged in</li>

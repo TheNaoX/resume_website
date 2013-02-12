@@ -13,3 +13,16 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+$(function(){
+  $('.fn-like').bind('click', function(e){
+    var postId = $(e.target).parent().find('.fn-id').val(),
+        likeMessageTag = $(e.target).parent().find('.fn-like-message')
+        request = $.ajax({ url: '/posts/like', type: 'POST', data: { post_id: postId } });
+    request.done(function(response){
+      if (response.status == 200) {
+        likeMessageTag.html(response.message);
+      }
+    });
+  });
+});

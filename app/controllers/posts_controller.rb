@@ -23,5 +23,17 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
   end
-  
+
+  def like
+    @like = Like.new(post_id: params[:post_id], user_id: current_user.id)
+    respond_to do |format|
+      if @like.save
+        @post = Post.find(params[:post_id])
+        format.json { render json: { status: 200, message: @post.pretty_print_likes } }
+      else
+        format.json { render json: { status: 500, message: "Internal server error" } }
+      end
+    end
+  end
+
 end

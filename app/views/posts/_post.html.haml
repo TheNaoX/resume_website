@@ -1,5 +1,15 @@
 .hero-unit
+  %input{ type: 'hidden', class: 'fn-id', value: "#{post.id}"}
   %h3= post.title
   %p= post.content
   
   %a{ href: "/author/#{post.author_id}" }= post.author.username
+  |
+  - if current_user.likes.where(post_id: post.id).shift.nil?
+    %a.fn-like Like
+  - else
+    You already like this
+  %br
+  %p 
+    Likes count:
+    %span.fn-like-message= post.pretty_print_likes unless post.likes.empty?

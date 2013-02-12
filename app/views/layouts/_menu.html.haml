@@ -1,0 +1,11 @@
+%ul.nav.nav-pills
+  %li{ class: "#{"active" if params[:controller] == "main"}"}= link_to "Index", root_path
+  %li{ class: "#{"active" if params[:controller] == "posts"}"}= link_to "Posts", posts_path
+  - if user_signed_in?
+    %li{ style: "padding-top:8px;" }
+      Hello!
+      = current_user.username
+    %li= link_to "Sign out", destroy_user_session_path, method: 'delete'
+  - else
+    %li{ style: "padding-top:8px;" } You're not logged in
+    %li= link_to "Sign in", new_user_session_path

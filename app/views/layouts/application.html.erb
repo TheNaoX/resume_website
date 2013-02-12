@@ -8,21 +8,10 @@
 </head>
 <body>
 
-  <% flash.each do |key, value| %>
-  <%= content_tag :div, value, :class => "flash alert alert-#{key}" unless value.blank? %>
-  <% end %>
 
-  <ul class="nav nav-pills">
-    <li class="<%= "active" if params[:controller] == "main"%>"><%= link_to "Index", root_path %></li>
-    <li class="<%= "active" if params[:controller] == "posts"%>"><%= link_to "Posts", posts_path %></li>
-    <% if user_signed_in?  %>
-    <li style="padding-top:8px;">Hello! <%= current_user.username %></li>
-    <li><a href='/users/sign_out' data-method='delete'>Sign out</a></li>
-    <% else %>
-    <li>You're not logged in</li>
-    <li><a href='/users/sign_in'>Sign in here</a></li>
-    <% end %>
-  </ul>
+  <%= render 'layouts/menu' %>
+
+  <%= render 'layouts/flash_messages' %>
   <div class='container'>
     <%= yield %>
   </div>

@@ -1,9 +1,14 @@
 .fn-post-modal.modal.hide.fade
   .modal-header
+    %input{ type: 'hidden', class: 'fn-post-id' }
     %button(type="button" class="close" data-dismiss="modal" aria-hidden="true")x
     %h3.fn-title
   .modal-body
     %p.fn-content
     %a.fn-author{ target: "blank" }
+  %ul.fn-comments.breadcrumb
+  %form.fn-create-comment
+    %div.span1
+    %textarea{ class: "fn-comment-text input-large span5" }
   .modal-footer
-    %a(href="#" class="btn")Close
+    %a(href="#" class="btn" data-dismiss="modal")Close

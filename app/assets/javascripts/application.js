@@ -43,17 +43,36 @@ $(function(){
     });
   });
 
+
   $(document).on('click', '.fn-show-post', function(e){
     var postId = $(e.target).parent().parent().find('.fn-id').val(),
         request = $.ajax({ url: '/posts/' + postId, type: 'GET' });
+
     request.done(function(response){
-      var modal = $('.fn-post-modal');
+      var modal = $('.fn-post-modal'),
+          commentsList = modal.find('.fn-comments');
       modal.modal('show');
       modal.find('.fn-title').html(response.post.title);
       modal.find('.fn-content').html(response.post.content);
+      modal.find('.fn-post-id').val(response.post.id);
       modal.find('.fn-author').attr('href', '/author/' + response.author.id);
       modal.find('.fn-author').html(response.author.username);
+      $.each(response.commments, function(comment){
+        commentsList.append('<li><a>' + comment.user.username + '</a> ' + response.comment.comment + '</li>');
+      });
     });
+  });
+
+  $(document).on('keyup', '.fn-comment-text', function(e){
+    if (e.keyCode == 13) {
+      var commentText = $(e.currentTarget).val(),
+          postId = $(e.currentTarget).parent().parent().find('.fn-post-id').val(),
+          commentsList = $(e.currentTarget).parent().parent().find('.fn-comments'),
+          request = $.ajax({ url: '/comments', type: 'POST', data: { post_id: postId, comment: commentText } });
+      request.done(function(response){
+        commentsList.append('<li><a>' + response.user.username + '</a> ' + response.comment.comment + '</li>');
+      });
+    }
   });
 
 });

@@ -8,6 +8,8 @@ gem 'devise'
 
 gem 'haml'
 
+gem 'acts_as_api'
+
 group :development do
   gem 'pry'
 end

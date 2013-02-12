@@ -9,4 +9,6 @@ TrainessExam::Application.routes.draw do
       post :unlike
     end
   end
+
+  resources :comments, only: [:create]
 end

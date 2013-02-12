@@ -4,6 +4,7 @@ class Post < ActiveRecord::Base
 
   belongs_to :author, class_name: User, foreign_key: :author_id
   has_many :likes
+  has_many :comments
 
   validates_presence_of :content, :title, :author_id
   validates :content, length: { minimum: 140, message: "Please be more descriptive with the message" }

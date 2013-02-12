@@ -23,7 +23,7 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     respond_to do |format|
-      format.json { render json: { status: 200, post: @post, author: @post.author } }
+      format.json { render json: { status: 200, post: @post, author: @post.author, comments: @post.comments } }
     end
   end
 

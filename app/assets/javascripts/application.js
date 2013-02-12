@@ -15,12 +15,29 @@
 //= require_tree .
 
 $(function(){
-  $('.fn-like').bind('click', function(e){
-    var postId = $(e.target).parent().find('.fn-id').val(),
-        likeMessageTag = $(e.target).parent().find('.fn-like-message')
+  $(document).on('click', ".fn-like", function(e){
+    var postId = $(e.target).parent().parent().find('.fn-id').val(),
+        likeLink = $(e.target).parent().parent().find('.fn-like-link'),
+        likeMessageTag = $(e.target).parent().parent().find('.fn-like-message'),
         request = $.ajax({ url: '/posts/like', type: 'POST', data: { post_id: postId } });
+
     request.done(function(response){
       if (response.status == 200) {
+        likeLink.html("<a class='fn-unlike'>Unlike</a>")
+        likeMessageTag.html(response.message);
+      }
+    });
+  });
+
+  $(document).on('click', ".fn-unlike", function(e){
+    var postId = $(e.target).parent().parent().find('.fn-id').val(),
+        likeLink = $(e.target).parent().parent().find('.fn-like-link'),
+        likeMessageTag = $(e.target).parent().parent().find('.fn-like-message'),
+        request = $.ajax({ url: '/posts/unlike', type: 'POST', data: { post_id: postId } });
+
+    request.done(function(response){
+      if (response.status == 200) {
+        likeLink.html("<a class='fn-like'>Like</a>")
         likeMessageTag.html(response.message);
       }
     });

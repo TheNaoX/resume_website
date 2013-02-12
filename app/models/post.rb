@@ -13,8 +13,13 @@ class Post < ActiveRecord::Base
   default_scope order('created_at DESC')
 
   def pretty_print_likes
-    likes_string = "#{likes.first.user.username}"
-    likes_string += " and other #{likes.count - 1}" unless likes.count == 1
-    likes_string += " likes this..."
+    if likes.count > 0
+      likes_string = "<i class='icon-thumbs-up'></i>"
+      likes_string += "#{likes.first.user.username}"
+      likes_string += " and other #{likes.count - 1}" unless likes.count == 1
+      likes_string += " likes this."
+    else
+      "<i class='icon-thumbs-up'></i>Be the first of your friends to like this."
+    end
   end
 end

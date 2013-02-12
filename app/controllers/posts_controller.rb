@@ -36,4 +36,16 @@ class PostsController < ApplicationController
     end
   end
 
+  def unlike
+    @like = Like.where(post_id: params[:post_id], user_id: current_user.id).shift
+    respond_to do |format|
+      if @like.destroy
+        @post = Post.find(params[:post_id])
+        format.json { render json: { status: 200, message: @post.pretty_print_likes, likes_count: @post.likes.count } }
+      else
+        format.json { render json: { status: 500, message: "Internal server error" } }
+      end
+    end
+  end
+
 end

@@ -3,13 +3,16 @@
   %h3= post.title
   %p= post.content
   
+  By:
   %a{ href: "/author/#{post.author_id}" }= post.author.username
-  |
-  - if current_user.likes.where(post_id: post.id).shift.nil?
-    %a.fn-like Like
-  - else
-    You already like this
-  %br
-  %p 
-    Likes count:
-    %span.fn-like-message= post.pretty_print_likes unless post.likes.empty?
+
+  - if user_signed_in?
+    |
+    %span.fn-like-link
+      - if current_user.likes.where(post_id: post.id).shift.nil?
+        %a.fn-like Like
+      - else
+        %a.fn-unlike Unlike
+    %br
+    .fn-like-message
+      = post.pretty_print_likes.html_safe

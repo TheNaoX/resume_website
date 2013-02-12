@@ -15,3 +15,6 @@
 .container {
   width:80%;
 }
+
+.fn-like { cursor:pointer; }
+.fn-unlike { cursor:pointer; }

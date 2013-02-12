@@ -6,6 +6,7 @@ TrainessExam::Application.routes.draw do
   resources :posts, only: [:index, :show, :new, :create] do
     collection do
       post :like
+      post :unlike
     end
   end
 end

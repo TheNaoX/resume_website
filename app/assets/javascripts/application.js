@@ -42,4 +42,18 @@ $(function(){
       }
     });
   });
+
+  $(document).on('click', '.fn-show-post', function(e){
+    var postId = $(e.target).parent().parent().find('.fn-id').val(),
+        request = $.ajax({ url: '/posts/' + postId, type: 'GET' });
+    request.done(function(response){
+      var modal = $('.fn-post-modal');
+      modal.modal('show');
+      modal.find('.fn-title').html(response.post.title);
+      modal.find('.fn-content').html(response.post.content);
+      modal.find('.fn-author').attr('href', '/author/' + response.author.id);
+      modal.find('.fn-author').html(response.author.username);
+    });
+  });
+
 });

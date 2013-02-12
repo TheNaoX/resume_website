@@ -3,7 +3,7 @@ TrainessExam::Application.routes.draw do
   
   root to: "main#index"
 
-  resources :posts, only: [:index, :show, :new, :create] do
+  resources :posts, only: [:index, :show, :new, :create, :destroy] do
     collection do
       post :like
       post :unlike

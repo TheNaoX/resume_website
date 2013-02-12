@@ -1,10 +1,14 @@
 .hero-unit
   %input{ type: 'hidden', class: 'fn-id', value: "#{post.id}"}
-  %h3= post.title
+  %h3
+    %a.fn-show-post= post.title
   %p= post.content
   
   By:
   %a{ href: "/author/#{post.author_id}" }= post.author.username
+  - unless current_user.posts.where(id: post.id).shift.nil?
+    |
+    = link_to "Delete post", post_path(post.id), method: 'delete'
 
   - if user_signed_in?
     |

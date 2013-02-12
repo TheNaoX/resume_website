@@ -22,6 +22,22 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    respond_to do |format|
+      format.json { render json: { status: 200, post: @post, author: @post.author } }
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    respond_to do |format|
+      if @post.delete
+        flash[:success] = "Successfully deleted new post #{@post.title}"
+        format.html { redirect_to posts_path }
+      else
+        flash[:alert] = "Could not delete post: #{@post.title}, try again later"
+        format.html { redirect_to posts_path }
+      end
+    end
   end
 
   def like
@@ -46,6 +62,13 @@ class PostsController < ApplicationController
         format.json { render json: { status: 500, message: "Internal server error" } }
       end
     end
+  end
+
+  private
+  
+  def not_allowed_to_destroy_post
+    flash[:alert] = "You're not allowed to destroy this post"
+    redirect_to posts_path
   end
 
 end

@@ -6,17 +6,18 @@
   
   By:
   %a{ href: "/authors/#{post.author_id}" }= post.author.username
-  - unless current_user.posts.where(id: post.id).shift.nil?
-    |
-    = link_to "Delete post", post_path(post.id), method: 'delete'
-
   - if user_signed_in?
-    |
-    %span.fn-like-link
-      - if current_user.likes.where(post_id: post.id).shift.nil?
-        %a.fn-like Like
-      - else
-        %a.fn-unlike Unlike
-    %br
-    .fn-like-message
-      = post.pretty_print_likes.html_safe
+    - unless current_user.posts.where(id: post.id).shift.nil?
+      |
+      = link_to "Delete post", post_path(post.id), method: 'delete'
+
+    - if user_signed_in?
+      |
+      %span.fn-like-link
+        - if current_user.likes.where(post_id: post.id).shift.nil?
+          %a.fn-like Like
+        - else
+          %a.fn-unlike Unlike
+      %br
+      .fn-like-message
+        = post.pretty_print_likes.html_safe

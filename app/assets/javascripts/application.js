@@ -72,7 +72,11 @@ $(function(){
           request = $.ajax({ url: '/comments', type: 'POST', data: { post_id: postId, comment: commentText } });
       request.done(function(response){
         $(e.currentTarget).val('');
-        commentsList.append('<li><a href="/authors/"' + response.user.id + ' target="blank">' + response.user.username + '</a> ' + response.comment.comment + '</li><br />');
+        if (response.status == 200) {
+          commentsList.append('<li><a href="/authors/"' + response.user.id + ' target="blank">' + response.user.username + '</a> ' + response.comment.comment + '</li><br />');
+        } else {
+          $(e.currentTarget).parent().parent().find('.fn-error').html(response.message);
+        }
       });
     }
   });

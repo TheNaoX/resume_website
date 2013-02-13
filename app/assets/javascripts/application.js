@@ -12,6 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require libs/bootstrap
+//= require libs/underscore
+//= require libs/backbone
 //= require_tree .
 
 $(function(){

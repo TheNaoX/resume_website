@@ -1,15 +1,19 @@
-.fn-post-modal.modal.hide.fade
-  .modal-header
-    %input{ type: 'hidden', class: 'fn-post-id' }
-    %button(type="button" class="close" data-dismiss="modal" aria-hidden="true")x
-    %h3.fn-title
-  .modal-body
-    %p.fn-content
-    %a.fn-author{ target: "blank" }
-  %ul.fn-comments.breadcrumb
-  %form.fn-create-comment
-    %div.span1
-    %textarea{ class: "fn-comment-text input-large span5" }
-  .modal-footer
-    %p.fn-error{ style: 'color:red; float:left;' }
-    %a(href="#" class="btn" data-dismiss="modal")Close
+.fn-post.hero-unit
+  %input{ type: 'hidden', class: 'fn-id', value: "#{post.id}"}
+  %h3
+    %a.fn-show-post {{ title }}
+  %p= {{ content }}
+  
+  By:
+  %a{ href: "/authors/#{post.author_id}" }= {{ author.username }}
+  {{ #signedIn }}
+    = link_to "Delete post", post_path(post.id), method: 'delete'
+    |
+    %span.fn-like-link
+      - if current_user.likes.where(post_id: post.id).shift.nil?
+        %a.fn-like Like
+      - else
+        %a.fn-unlike Unlike
+    %br
+    .fn-like-message
+      = post.pretty_print_likes.html_safe

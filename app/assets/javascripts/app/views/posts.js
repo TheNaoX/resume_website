@@ -64,14 +64,18 @@ Blog.Views.posts = Backbone.View.extend({
       var commentText = $(e.currentTarget).val(),
           postId = $(e.currentTarget).parent().parent().find('.fn-post-id').val(),
           commentsList = $(e.currentTarget).parent().parent().find('.fn-comments'),
-          comment = new Blog.Models.comment({post_id: postId, comment: commentText});
+          comment = new Blog.Models.comment({post_id: postId, comment: commentText}),
+          request = comment.save();
+
       request.done(function(response){
+        console.log(comment);
+        console.log(response);
+        console.log(e);
         $(e.currentTarget).val('');
-        if (response.status == 200) {
-          commentsList.append('<li><a href="/authors/"' + response.user.id + ' target="blank">' + response.user.username + '</a> ' + response.comment.comment + '</li><br />');
-        } else {
-          $(e.currentTarget).parent().parent().find('.fn-error').html(response.message);
-        }
+        commentsList.append('<li><a href="/authors/"' + response.id + ' target="blank">' + response.username + '</a> ' + response.comment + '</li><br />');
+      })
+      request.error( function(e){
+        $(e.currentTarget).parent().parent().find('.fn-error').html(response.message);
       });
     }
   }

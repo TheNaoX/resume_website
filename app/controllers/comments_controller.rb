@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(post_id: params[:post_id], user_id: current_user.id, comment: params[:comment])
     if @comment.save
-      respond_with(@comment, location: "/comments/#{@comment.id}")
+      respond_with(@comment, api_template: :post_details)
     else
       respond_with(@comment.errors, status: :unprocessable_entity, message: "We're sorry but something went wrong, try later")
     end
@@ -14,6 +14,6 @@ class CommentsController < ApplicationController
 
   def show
     @comment = Comment.find(params[:id])
-    respond_with(@comment)
+    respond_with(@comment, api_template: :post_details)
   end
 end

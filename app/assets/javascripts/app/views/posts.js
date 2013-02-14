@@ -67,15 +67,13 @@ Blog.Views.posts = Backbone.View.extend({
           comment = new Blog.Models.comment({post_id: postId, comment: commentText}),
           request = comment.save();
 
-      request.done(function(response){
-        console.log(comment);
-        console.log(response);
-        console.log(e);
+      request.done(function(){
         $(e.currentTarget).val('');
-        commentsList.append('<li><a href="/authors/"' + response.id + ' target="blank">' + response.username + '</a> ' + response.comment + '</li><br />');
+        commentsList.append('<li><a href="/authors/"' + comment.attributes.comment.id + ' target="blank">' + comment.attributes.comment.username + '</a> ' + comment.attributes.comment.comment + '</li><br />');
       })
-      request.error( function(e){
-        $(e.currentTarget).parent().parent().find('.fn-error').html(response.message);
+      request.error(function(){
+        $(e.currentTarget).val('');
+        $(e.currentTarget).parent().parent().find('.fn-error').html("You have to sign in to comment this publication <a href='/users/sign_in'>Sign in</a>");
       });
     }
   }

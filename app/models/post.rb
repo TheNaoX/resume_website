@@ -20,6 +20,7 @@ class Post < ActiveRecord::Base
     template.add :content
     template.add :created_at
     template.add :updated_at
+    template.add :pretty_print_likes
     template.add :comments
     template.add :author
   end

@@ -50,8 +50,8 @@ Blog.Views.posts = Backbone.View.extend({
       modal.find('.fn-title').html(response.post.title);
       modal.find('.fn-content').html(response.post.content);
       modal.find('.fn-post-id').val(response.post.id);
-      modal.find('.fn-author').attr('href', '/authors/' + response.post.author.post.id);
-      modal.find('.fn-author').html(response.post.author.post.username);
+      modal.find('.fn-author').attr('href', '/authors/' + response.post.author.id);
+      modal.find('.fn-author').html(response.post.author.username);
       commentsList.empty();
       $.each(response.post.comments, function(index,comment){
         commentsList.append('<li><a href="/authors/' + comment.userid + '" target="blank">' + comment.username + '</a> ' + comment.comment + '</li><br />');
@@ -64,7 +64,7 @@ Blog.Views.posts = Backbone.View.extend({
       var commentText = $(e.currentTarget).val(),
           postId = $(e.currentTarget).parent().parent().find('.fn-post-id').val(),
           commentsList = $(e.currentTarget).parent().parent().find('.fn-comments'),
-          request = $.ajax({ url: '/comments', type: 'POST', data: { post_id: postId, comment: commentText } });
+          comment = new Blog.Models.comment({post_id: postId, comment: commentText});
       request.done(function(response){
         $(e.currentTarget).val('');
         if (response.status == 200) {

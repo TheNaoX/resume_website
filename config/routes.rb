@@ -10,5 +10,5 @@ TrainessExam::Application.routes.draw do
     end
   end
 
-  resources :comments, only: [:create]
+  resources :comments, only: [:create, :show], defaults: { format: :json }
 end

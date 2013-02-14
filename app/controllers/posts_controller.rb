@@ -2,6 +2,10 @@ class PostsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
   def index
     @posts = Post.all
+    respond_to do |format|
+      format.html
+      format.json { render_for_api :post_details, json: @posts }
+    end
   end
 
   def new

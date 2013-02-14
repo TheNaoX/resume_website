@@ -61,9 +61,10 @@ Blog.Views.posts = Backbone.View.extend({
   
   postComment: function(e){
     if (e.keyCode == 13) {
-      var commentText = $(e.currentTarget).val(),
-          postId = $(e.currentTarget).parent().parent().find('.fn-post-id').val(),
-          commentsList = $(e.currentTarget).parent().parent().find('.fn-comments'),
+      var $target = $(e.currentTarget).parent().parent(),
+          commentText = $(e.currentTarget).val(),
+          postId = $target.find('.fn-post-id').val(),
+          commentsList = $target.find('.fn-comments'),
           comment = new Blog.Models.comment({post_id: postId, comment: commentText}),
           request = comment.save();
 

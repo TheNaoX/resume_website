@@ -10,6 +10,20 @@ gem 'haml'
 
 gem 'acts_as_api'
 
+group :test do
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'guard-spork'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'spork-rails'
+  gem 'rb-fsevent', '~> 0.9.1'
+  gem 'simplecov'
+end
+
+
 group :development do
   gem 'pry'
 end

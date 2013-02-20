@@ -1,0 +1,31 @@
+require 'spec_helper'
+
+describe Comment do
+  before :each do
+    post = FactoryGirl.create(:post)
+    user = FactoryGirl.create(:user)
+  end
+  context 'Create comments' do
+
+    it 'should validate if the comment has text' do
+      comment = Comment.new
+      comment.save
+      comment.errors.any?.should be_true
+      comment.comment = "This text is not going to be publicated"
+      comment.user_id = 1
+      comment.post_id = 1
+      comment.save.should be_true
+    end
+
+  end
+
+  context 'Get info from comments' do
+
+    it 'should return the username from the commenter' do
+      comment = Comment.new(comment: 'Text goes here', user_id: user.id, post_id: post.id)
+      comment.save
+      comment.username.should == "user1"
+    end
+
+  end
+end

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Comment do
   before :each do
     post = FactoryGirl.create(:post)
-    user = FactoryGirl.create(:user)
+    user = post.author
   end
   context 'Create comments' do
 

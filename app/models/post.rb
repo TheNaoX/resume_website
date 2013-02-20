@@ -10,7 +10,10 @@ class Post < ActiveRecord::Base
   validates_presence_of :content, :title, :author_id
   validates :content, length: { minimum: 140, message: "Please be more descriptive with the message" }
   validates :title, uniqueness: { message: "This post already exists" }
-  validates :link, format: { with: URI::regexp(%w(http https)), message: "Please enter valid link" }
+  validates :link, format: { 
+    with: URI::regexp(%w(http https)), message: "Please enter valid link",
+    allow_blank: true
+  }
 
   default_scope order('created_at DESC')
 

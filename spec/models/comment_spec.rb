@@ -25,6 +25,7 @@ describe Comment do
       comment = Comment.new(comment: 'Text goes here', user_id: @user.id, post_id: @post.id)
       comment.save
       comment.username.should == "Awesome author"
+      comment.userid.should == @user.id
     end
 
   end

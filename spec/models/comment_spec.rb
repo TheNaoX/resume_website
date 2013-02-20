@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Comment do
   before :each do
-    post = FactoryGirl.create(:post)
-    user = post.author
+    @post = FactoryGirl.create(:post)
+    @user = @post.author
   end
   context 'Create comments' do
 
@@ -22,9 +22,9 @@ describe Comment do
   context 'Get info from comments' do
 
     it 'should return the username from the commenter' do
-      comment = Comment.new(comment: 'Text goes here', user_id: user.id, post_id: post.id)
+      comment = Comment.new(comment: 'Text goes here', user_id: @user.id, post_id: @post.id)
       comment.save
-      comment.username.should == "user1"
+      comment.username.should == "Awesome author"
     end
 
   end

@@ -28,5 +28,7 @@ describe Comment do
       comment.userid.should == @user.id
     end
 
+    pending 'Something'
+
   end
 end
